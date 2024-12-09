@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <title>Comuni</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Cerca comune</h1>
+        <div class="form-group">
+            <label for="comune">Comune:</label>
+            <input type="text" name="comune" id="comune">
+        </div>
+        <div class="form-group">
+            <label for="codice_belfiore">Codice:</label>
+            <input type="text" id="codice_belfiore" name="codice_belfiore">
+        </div>
+    </div>
+    <div class="button_container">
+        <a class="button" id="cerca" href="javascript:void(0)">Cerca</a>
+        <!-- <a class="button" id="Nuovo" href="javascript:void(0)">Nuovo</a>
+        <a class="button" id="Cancella" href="javascript:void(0)">Cancella</a> -->
+    </div>
+    <div id="response"></div>
+</body>
+<script>
+    const btnCerca = document.querySelector('#cerca');
+
+    btnCerca.addEventListener('click', e => cerca());
+
+    function cerca() {
+        event.preventDefault();
+        let comune = document.getElementById('comune').value;
+        let codice = document.getElementById('codice_belfiore').value;
+        if (comune != '') {
+            cercaPerNome(comune);
+        } else {
+            cercaPerCodice(codice);
+        }
+    }
+
+    async function cercaPerCodice(codice) {
+        event.preventDefault(); // Previene il ricaricamento della pagina
+
+        const response = await fetch('/comune/codice/' + codice.toUpperCase(), {
+            method: 'GET'
+        });
+
+        const result = await response.json(); // Parsa il JSON
+        if (response.status != 200) {
+            document.getElementById('response').innerHTML = result.message;
+        }
+        else {
+            document.getElementById('response').innerHTML = `
+                <h2>Comune trovato!</h2>
+                <div class="comune">
+                    <p><strong>Comune:</strong> ${result.comune}</p>
+                    <p><strong>Provincia:</strong> ${result.provincia}</p>
+                    <p><strong>Codice:</strong> ${result.codice_belfiore}</p>
+                </div>
+            `;
+        }
+
+        createButton();
+        svuotaCampi();
+    }
+    
+
+    async function cercaPerNome(nome) {
+        event.preventDefault(); // Previene il ricaricamento della pagina
+
+        const response = await fetch('/comune/comune/' + nome.toUpperCase(), {
+            method: 'GET'
+        });
+
+        const result = await response.json(); // Parsa il JSON
+
+        result.forEach(el => {
+            console.log(el.comune)
+        });
+        document.getElementById('response').innerHTML = `<h2>Elenco</h2>
+            <table id="tabella">
+                <thead>
+                    <tr>
+                        <th>Comune</th>
+                        <th>Provincia</th>
+                        <th>Codice Belfiore</th>
+                    </tr>
+                </thead>
+                <tbody class="righe">
+
+                </tbody>
+            </table>`;
+        let tabella = document.getElementById('tabella');
+        let righe = tabella.getElementsByClassName('righe').item('tbody');
+        let testo = '';
+        result.forEach(element => {
+
+            testo += `
+                <tr id="comuni" data-id='${element.id}'>
+                  <td>${element.comune}</td>
+                  <td>${element.provincia} </td>
+                  <td>${element.codice_belfiore}</td>    
+                </tr>
+            `;
+        });
+        righe.innerHTML = testo;
+        createButton();
+        svuotaCampi();
+
+    }
+
+    function createButton() {
+        // Add close button
+        const closeButton = document.createElement('button');
+        closeButton.textContent = 'Close';
+        closeButton.style.marginTop = '10px';
+        document.getElementById('response').appendChild(closeButton);
+
+        // Add click event listener to close button
+        closeButton.addEventListener('click', () => {
+            document.getElementById('response').innerHTML = '';
+        });
+
+    }
+
+    function svuotaCampi() {
+        document.getElementById('comune').value = '';
+        document.getElementById('codice_belfiore').value = '';
+    }
+</script>
+
+</html>

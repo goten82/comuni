@@ -1,0 +1,109 @@
+:root {
+    --primary-color: #4CAF50;
+    --primary-hover: #45a049;
+    --primary-active: #3d8b40;
+    --text-color: white;
+    --padding-x: 20px;
+    --padding-y: 10px;
+    --border-radius: 4px;
+    --font-size: 16px;
+    --transition-speed: 0.3s;
+}
+
+.container {
+    padding: var(--padding-x) var(--padding-y);
+}
+
+.form-group {
+    padding-top: var(--padding-x);
+}
+
+.form-group input {
+    width: 100%;
+    padding: var(--padding-y);
+    margin-bottom: var(--padding-y);
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: var(--font-size);
+    box-sizing: border-box;
+}
+
+
+a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: var(--padding-y);
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    text-transform: uppercase;
+}
+
+a:hover {
+    background-color: var(--primary-hover);
+}
+
+a:active {
+    background-color: var(--primary-active);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--padding-y) 0;
+}
+
+th, td {
+    padding: var(--padding-y);
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #ddd;
+    transition: background-color var(--transition-speed);
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    text-transform: uppercase;
+}
+
+button:hover {
+    color: var(--primary-hover);
+}
+
+
+.comune {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: var(--padding-y) var(--padding-x);
+    margin: var(--padding-y) 0;
+    transition: transform var(--transition-speed);
+}
+
+.comune:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
