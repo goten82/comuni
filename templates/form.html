@@ -36,8 +36,10 @@
         let codice = document.getElementById('codice_belfiore').value;
         if (comune != '') {
             cercaPerNome(comune);
-        } else {
+        } else if (codice != '') {
             cercaPerCodice(codice);
+        } else {
+            alert("Inserire almeno un parametro!")
         }
     }
 
@@ -66,7 +68,7 @@
         createButton();
         svuotaCampi();
     }
-    
+
 
     async function cercaPerNome(nome) {
         event.preventDefault(); // Previene il ricaricamento della pagina
