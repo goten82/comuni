@@ -10,7 +10,8 @@ setup(
         "pandas>=1.2.0",
         "numpy>=1.19.0",
         "beautifulsoup4>=4.9.3",
-        "lxml>=4.6.0"
+        "lxml>=4.6.0",
+        "setuptools>=70.0.0"
     ],
     author="Giuseppe Ninniri",
     author_email="goten.ninniri@gmail.com",
